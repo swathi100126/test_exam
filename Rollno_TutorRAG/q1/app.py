@@ -82,8 +82,11 @@ STYLE_ERROR = "Choose simple or exam-focused."
 
 
 def _load_groq_settings() -> tuple[str, str]:
-    """Load Groq settings from the project .env. The key is never shown or stored."""
-    load_dotenv(Path(__file__).resolve().parents[2] / ".env")
+    """Load Groq settings from .env. The key is never shown or stored."""
+    app_dir = Path(__file__).resolve().parent
+    repo_root = app_dir.parents[1]
+    load_dotenv(app_dir / ".env")
+    load_dotenv(repo_root / ".env")
     api_key = os.getenv("GROQ_API_KEY", "").strip()
     model = os.getenv("GROQ_MODEL", "").strip() or DEFAULT_GROQ_MODEL
     return api_key, model
